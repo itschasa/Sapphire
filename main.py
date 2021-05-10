@@ -152,7 +152,6 @@ if True:
             config = json.load(f)
         
         print(f"{Fore.GREEN}[+] Loaded Config!")
-        return config
     except Exception as e:
         print(f"{Fore.RED}[!] Couldn't find config.json. Creating now...")
         autoConfig = r'''{ 
@@ -184,7 +183,6 @@ if True:
             config = json.load(f)
         
         print(f"{Fore.GREEN}[+] Loaded Config!")
-        return config
 
 def reloadConfig():
     print(f"{Fore.CYAN}[>] Loading Config...")
