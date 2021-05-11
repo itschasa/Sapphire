@@ -8,7 +8,7 @@
 #            (_)   (_)                        
 
  
-# Developed by Chasa#0001
+# Developed by Chasa#0001 
 
 # I DO NOT HELD ACCOUNTABLE FOR WHAT YOU DO WITH THIS BOT.
 # SELFBOTTING IS AGAINST DISCORD'S TOS, ONLY USE IT WISLY.
