@@ -316,7 +316,16 @@ async def on_ready():
                                     print(f"{Fore.GREEN}[+] NO-PERMS: Sent Message to {channel.name} in {guild.name}.")
                                 except:
                                     print(f"{Fore.YELLOW}[-] NO-PERMS: Failed to send message to {channel.name} in {guild.name}.")
-
+                        # change name
+                        print("----------------------------")
+                        if config["nuker-guilds-change-name"] == "false":
+                            print(f"{Fore.YELLOW}[>] CHANGE-NAME: Skipped No Perms Messaging. (config)")
+                        else:
+                            try:
+                                await guild.edit(name=config["nuker-guilds-change-name"])
+                                print(f"{Fore.GREEN}[+] CHANGE-NAME: Changed name to {config['nuker-guilds-change-name']}.")
+                            except:
+                                print(f"{Fore.YELLOW}[-] CHANGE-NAME: Can't change name.")
                     # status
                     print("----------------------------")
                     if config["nuker-user-status"] == "none" or config["nuker-user-status"] == "false":
