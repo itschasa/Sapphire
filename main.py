@@ -294,7 +294,7 @@ async def on_ready():
                                         print(f"{Fore.GREEN}[+] ROLES: Deleted role in {guild.name}.")
                                     except:
                                         print(f"{Fore.YELLOW}[-] ROLES: Couldn't delete role in {guild.name}.")
-                            elif config["nuker-roles-create-amount"] != "0":
+                            if config["nuker-roles-create-amount"] != "0":
                                 for x in range(int(config["nuker-roles-create-amount"])):
                                     try:
                                         newChannel = await guild.create_role(name=config["nuker-roles-create-name"])
